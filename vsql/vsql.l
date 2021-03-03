@@ -21,7 +21,13 @@ other .
 
 %%
 SELECT          return SELECT;
+UPDATE          return UPDATE;
+INSERT          return INSERT;
+INTO            return INTO;
+DELETE          return DELETE;
+SET             return SET;
 FROM            return FROM;
+VALUES          return VALUES;
 WHERE           return WHERE;
 AND             return AND;
 OR              return OR;
@@ -29,8 +35,9 @@ OR              return OR;
 [,]             return *yytext;
 [=]             return *yytext;
 `?{idmark}`?    return NAME;
-{digit}+        return IVALUE;
-\"{char}*\"     return SVALUE;
+{digit}+        return VALUE;
+\"{char}*\"     return VALUE;
+\'{char}*\'     return VALUE;
 \n              return *yytext;
 [ \t]+          ; /*ignore white space*/
 %%

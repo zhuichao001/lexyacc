@@ -21,8 +21,12 @@ $(FLEXC) : $(FLEXI)
 $(BISONC) $(BISONH) : $(BISONI)
 	    $(YACC) -d $(BISONI)
 
-test:
+select:
 	    echo 'SELECT id, `type` FROM product WHERE id = 123 AND `type` = "zed"' | ./$(OBJ)
+	    echo 'SELECT id, `type` FROM product' | ./$(OBJ)
+
+insert:
+	    echo "INSERT INTO websites (name, url, alexa) VALUES ('ali','aliyun.com',4)" | ./$(OBJ)
 
 clean:
 	    rm -f ./$(OBJ) ./$(FLEXC) ./$(BISONC) ./$(BISONH)
