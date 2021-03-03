@@ -1,10 +1,10 @@
 OBJ := vsql
 
-FLEXO := sql_lex
+FLEXO := vsql
 FLEXI := $(FLEXO).l
 FLEXC := $(FLEXO).c
 
-BISONO := sql_yacc
+BISONO := vsql
 BISONI := $(BISONO).y
 BISONC := $(BISONO).tab.c
 BISONH := $(BISONO).tab.h

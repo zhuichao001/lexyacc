@@ -1,6 +1,6 @@
 %{
 #include <stdio.h>
-#include "sql_yacc.tab.h"
+#include "vsql.tab.h"
 extern int yylval;
 %}
 
