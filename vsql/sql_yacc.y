@@ -5,7 +5,7 @@ int yywrap(void);
 void yyerror(char const *);
 %}
 
-%token SELECT FROM NAME WHERE AND OR VALUE
+%token SELECT FROM NAME WHERE AND OR IVALUE SVALUE
 
 %%
 
@@ -14,9 +14,10 @@ select: SELECT;
 items: '*' | identifiers;
 identifiers: NAME | NAME ',' identifiers;
 using: FROM NAME WHERE;
-condition: NAME '=' VALUE 
-         | NAME '=' VALUE AND condition 
-         | NAME '=' VALUE OR condition;
+value: IVALUE | SVALUE;
+condition: NAME '=' value 
+         | NAME '=' value AND condition 
+         | NAME '=' value OR condition;
 
 %%
 
