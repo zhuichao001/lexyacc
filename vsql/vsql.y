@@ -9,7 +9,7 @@ void yyerror(char const *);
 
 %%
 
-lang: get | modify | put | del ;
+lang:       get | modify | put | del ;
 
 fields:     NAME | NAME ',' fields;
 items:      '*' | fields;
