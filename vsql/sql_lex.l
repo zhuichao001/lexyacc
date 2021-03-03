@@ -4,16 +4,16 @@
 extern int yylval;
 %}
 
-hex [0-9A-Fa-f]
-letter [a-zA-Z_.]
-digit [0-9]
-mixchar [a-zA-Z_0-9.]
-char [\]\[\\\+\"=\)\(\{\}\*&\^\%\$#@!:;,\|\~\`\.\<\>\?\/a-zA-Z_0-9 \t\n\-]
-sign [\+\-]
-space [ \t\n]
-blank [ \t]
-quota \'
-double_quota \"
+hex             [0-9A-Fa-f]
+letter          [a-zA-Z_.]
+digit           [0-9]
+mixchar         [a-zA-Z_0-9.]
+char            [\]\[\\\+\"=\)\(\{\}\*&\^\%\$#@!:;,\|\~\`\.\<\>\?\/a-zA-Z_0-9 \t\n\-]
+sign            [\+\-]
+space           [ \t\n]
+blank           [ \t]
+quota           \'
+double_quota    \"
 non_double_quota [^\"\n]
 /*back_quota \`*/
 other .
