@@ -15,7 +15,7 @@ blank           [ \t]
 quot            \'
 double_quot     \"
 non_double_quot [^\"\n]
-/*back_quota \`*/
+back_quot       \`
 other .
 
 %%
