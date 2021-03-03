@@ -12,29 +12,29 @@ char            [\]\[\\\+\"=\)\(\{\}\*&\^\%\$#@!:;,\|\~\`\.\<\>\?\/a-zA-Z_0-9 \t
 sign            [\+\-]
 space           [ \t\n]
 blank           [ \t]
-quota           \'
-double_quota    \"
-non_double_quota [^\"\n]
+quot            \'
+double_quot     \"
+non_double_quot [^\"\n]
 /*back_quota \`*/
 other .
 
 %%
-select                      return SELECT;
-SELECT                      return SELECT;
-from                        return FROM;
-FROM                        return FROM;
-where                       return WHERE;
-WHERE                       return WHERE;
-and                         return AND;
-AND                         return AND;
-or                          return OR;
-OR                          return OR;
-[*]                         return *yytext;
-[,]                         return *yytext;
-[=]                         return *yytext;
+select                  return SELECT;
+SELECT                  return SELECT;
+from                    return FROM;
+FROM                    return FROM;
+where                   return WHERE;
+WHERE                   return WHERE;
+and                     return AND;
+AND                     return AND;
+or                      return OR;
+OR                      return OR;
+[*]                     return *yytext;
+[,]                     return *yytext;
+[=]                     return *yytext;
 `?{letter}{mixchar}*`?  return NAME;
-{digit}+                     return IVALUE;
-\"{char}*\"                  return SVALUE;
-\n                          return *yytext;
-[ \t]+                      /*ignore whitespace*/;
+{digit}+                return IVALUE;
+\"{char}*\"             return SVALUE;
+\n                      return *yytext;
+[ \t]+                  /*ignore whitespace*/;
 %%

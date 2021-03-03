@@ -9,15 +9,13 @@ void yyerror(char const *);
 
 %%
 
-lang: select items using condition '\n' { printf("Syntax Correct\n"); };
-select: SELECT;
-items: '*' | identifiers;
+require:    select items using condition '\n' { printf("Syntax Correct\n"); };
+select:     SELECT;
+items:      '*' | identifiers;
 identifiers: NAME | NAME ',' identifiers;
-using: FROM NAME WHERE;
-value: IVALUE | SVALUE;
-condition: NAME '=' value 
-         | NAME '=' value AND condition 
-         | NAME '=' value OR condition;
+using:      FROM NAME WHERE;
+value:      IVALUE | SVALUE;
+condition:  NAME '=' value | NAME '=' value AND condition | NAME '=' value OR condition;
 
 %%
 
