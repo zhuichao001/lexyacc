@@ -5,7 +5,7 @@ int yywrap(void);
 void yyerror(char const *);
 %}
 
-%token SELECT UPDATE INSERT DELETE SET FROM INTO VALUES VALUE NAME WHERE AND OR
+%token SELECT UPDATE INSERT DELETE SET FROM INTO VALUES VALUE NAME WHERE AND OR EQ NEQ GT LT GE LE
 
 %%
 
@@ -13,8 +13,9 @@ lang: get | modify | put | del ;
 
 fields:     NAME | NAME ',' fields;
 items:      '*' | fields;
-values:       VALUE | VALUE ',' values;
-condition:  NAME '=' VALUE | NAME '=' VALUE AND condition | NAME '=' VALUE OR condition;
+values:     VALUE | VALUE ',' values;
+logic:      EQ | NEQ | GT | LT | GE | LE;
+condition:  NAME logic VALUE | NAME logic VALUE AND condition | NAME logic VALUE OR condition;
 assignment: NAME '=' VALUE | NAME '=' VALUE ',' assignment;
 
 get:        SELECT items FROM NAME '\n' { printf("SELECT mini SQL\n"); }
