@@ -22,7 +22,7 @@ $(BISONC) $(BISONH) : $(BISONI)
 	    $(YACC) -d $(BISONI)
 
 test:
-	    echo 'select id, `type` from product where id = 123 and `type` = "zed"' | ./$(OBJ)
+	    echo 'SELECT id, `type` FROM product WHERE id = 123 AND `type` = "zed"' | ./$(OBJ)
 
 clean:
 	    rm -f ./$(OBJ) ./$(FLEXC) ./$(BISONC) ./$(BISONH)
