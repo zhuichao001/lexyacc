@@ -4,8 +4,19 @@
 extern int yylval;
 %}
 
-word    [a-zA-Z0-9_]+
-digit   [1-9][0-9]*
+hex [0-9A-Fa-f]
+letter [a-zA-Z_.]
+digit [0-9]
+mixchar [a-zA-Z_0-9.]
+char [\]\[\\\+\"=\)\(\{\}\*&\^\%\$#@!:;,\|\~\`\.\<\>\?\/a-zA-Z_0-9 \t\n\-]
+sign [\+\-]
+space [ \t\n]
+blank [ \t]
+quota \'
+double_quota \"
+non_double_quota [^\"\n]
+/*back_quota \`*/
+other .
 
 %%
 select                      return SELECT;
@@ -21,9 +32,9 @@ OR                          return OR;
 [*]                         return *yytext;
 [,]                         return *yytext;
 [=]                         return *yytext;
-`?[a-zA-Z_][a-zA-Z0-9_]*`?  return NAME;
-{digit}                     return IVALUE;
-\"{word}\"                  return SVALUE;
+`?{letter}{mixchar}*`?  return NAME;
+{digit}+                     return IVALUE;
+\"{char}*\"                  return SVALUE;
 \n                          return *yytext;
 [ \t]+                      /*ignore whitespace*/;
 %%
