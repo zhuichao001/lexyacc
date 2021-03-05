@@ -6,7 +6,8 @@ void yyerror(char const *);
 %}
 
 %token SELECT UPDATE INSERT DELETE SET FROM INTO VALUES WHERE 
-%token VALUE NAME AND OR EQ NEQ GT LT GE LE
+%token AND OR EQ NEQ GT LT GE LE
+%token NAME VALUE
 
 %%
 
