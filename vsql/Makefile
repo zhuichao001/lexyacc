@@ -21,19 +21,19 @@ $(FLEXC) : $(FLEXI)
 $(BISONC) $(BISONH) : $(BISONI)
 	    $(YACC) -d $(BISONI)
 
-select:
+get:
 	    echo 'SELECT id, `type` FROM product WHERE id = 123 AND `type` = "zed"' | ./$(OBJ)
 	    echo 'SELECT id, `type` FROM product' | ./$(OBJ)
 
-insert:
+put:
 	    echo "INSERT INTO websites (name, url, alexa) VALUES ('ali','aliyun.com',4)" | ./$(OBJ)
 	    echo "INSERT INTO websites (id, name) VALUES (7, 'ali')" | ./$(OBJ)
 
-update:
-	    echo "UPDATE websites SET alexa=30, country='USA' WHERE name='ali'" | ./$(OBJ)
-	    echo "UPDATE websites SET used=0" | ./$(OBJ)
+post:
+	    echo "UPDATE websites SET alexa = 30, country = 'USA' WHERE name = 123" | ./$(OBJ)
+	    echo "UPDATE websites SET used = 0" | ./$(OBJ)
 
-delete:
+del:
 	    echo "DELETE FROM websites WHERE `id` > 12 " | ./$(OBJ)
 	    echo "DELETE FROM websites " | ./$(OBJ)
 

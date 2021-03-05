@@ -5,11 +5,12 @@ int yywrap(void);
 void yyerror(char const *);
 %}
 
-%token SELECT UPDATE INSERT DELETE SET FROM INTO VALUES VALUE NAME WHERE AND OR EQ NEQ GT LT GE LE
+%token SELECT UPDATE INSERT DELETE SET FROM INTO VALUES WHERE 
+%token VALUE NAME AND OR EQ NEQ GT LT GE LE
 
 %%
 
-lang:       get | modify | put | del ;
+lang:       get | post | put | del ;
 
 fields:     NAME | NAME ',' fields;
 items:      '*' | fields;
@@ -18,16 +19,16 @@ logic:      EQ | NEQ | GT | LT | GE | LE;
 condition:  NAME logic VALUE | NAME logic VALUE AND condition | NAME logic VALUE OR condition;
 assignment: NAME '=' VALUE | NAME '=' VALUE ',' assignment;
 
-get:        SELECT items FROM NAME '\n' { printf("SELECT mini SQL\n"); }
-            |SELECT items FROM NAME WHERE condition '\n' { printf("SELECT SQL\n"); };
+get:        SELECT items FROM NAME WHERE condition '\n' { printf("SELECT SQL\n"); }
+            |SELECT items FROM NAME '\n' { printf("SELECT mini SQL\n"); };
 
-modify:     UPDATE NAME SET assignment '\n' { printf("UPDATE mini SQL\n"); } 
-            |UPDATE NAME SET assignment WHERE condition '\n' { printf("UPDATE SQL\n"); };
+post:       UPDATE NAME SET assignment WHERE condition '\n' { printf("UPDATE SQL\n"); } 
+            |UPDATE NAME SET assignment '\n' { printf("UPDATE mini SQL\n"); };
 
 put:        INSERT INTO NAME '(' fields ')' VALUES '(' values ')' '\n' { printf("INSERT SQL\n"); };
 
-del:        DELETE FROM NAME  '\n' { printf("DELETE mini SQL \n"); }
-            |DELETE FROM NAME WHERE condition '\n' { printf("DELETE SQL\n"); };
+del:        DELETE FROM NAME WHERE condition '\n' { printf("DELETE SQL\n"); }
+            |DELETE FROM NAME  '\n' { printf("DELETE mini SQL \n"); };
 
 %%
 
