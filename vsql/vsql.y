@@ -5,31 +5,35 @@ int yywrap(void);
 void yyerror(char const *);
 %}
 
-%token SELECT UPDATE INSERT DELETE SET FROM INTO VALUES WHERE 
-%token AND OR EQ NEQ GT LT GE LE
-%token NAME VALUE
+%token SELECT UPDATE INSERT DELETE SET FROM INTO VALUES WHERE AND OR EQ NEQ GT LT GE LE NAME VALUE
+%left AND OR
+%left EQ NEQ GT LT GE LE
 
 %%
 
-lang:       get | post | put | del ;
+program:    get '\n'
+            | post '\n'
+            | put '\n'
+            | del '\n'
+            |;
 
-fields:     NAME | NAME ',' fields;
-items:      '*' | fields;
-values:     VALUE | VALUE ',' values;
+fields:     NAME | fields ',' NAME;
+columns:    '*' | fields;
+values:     VALUE | values ',' VALUE;
 logic:      EQ | NEQ | GT | LT | GE | LE;
-condition:  NAME logic VALUE | NAME logic VALUE AND condition | NAME logic VALUE OR condition;
-assignment: NAME '=' VALUE | NAME '=' VALUE ',' assignment;
+whereas:    | WHERE expr;
+expr:       clause | expr AND clause | expr OR clause;
+clause:     NAME logic VALUE; 
 
-get:        SELECT items FROM NAME WHERE condition '\n' { printf("SELECT SQL\n"); }
-            |SELECT items FROM NAME '\n' { printf("SELECT mini SQL\n"); };
+assignment: NAME '=' VALUE | assignment ',' NAME '=' VALUE;
 
-post:       UPDATE NAME SET assignment WHERE condition '\n' { printf("UPDATE SQL\n"); } 
-            |UPDATE NAME SET assignment '\n' { printf("UPDATE mini SQL\n"); };
+get:        SELECT columns FROM NAME whereas { printf("SELECT SQL WHERE\n"); };
 
-put:        INSERT INTO NAME '(' fields ')' VALUES '(' values ')' '\n' { printf("INSERT SQL\n"); };
+post:       UPDATE NAME SET assignment whereas { printf("UPDATE SQL\n"); } ;
 
-del:        DELETE FROM NAME WHERE condition '\n' { printf("DELETE SQL\n"); }
-            |DELETE FROM NAME  '\n' { printf("DELETE mini SQL \n"); };
+put:        INSERT INTO NAME '(' fields ')' VALUES '(' values ')' { printf("INSERT SQL\n"); };
+
+del:        DELETE FROM NAME whereas { printf("DELETE SQL\n"); };
 
 %%
 
@@ -45,4 +49,3 @@ int main() {
     yyparse();
     return 0;
 }
-

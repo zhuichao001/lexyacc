@@ -22,20 +22,19 @@ $(BISONC) $(BISONH) : $(BISONI)
 	    $(YACC) -d $(BISONI)
 
 get:
-	    echo 'SELECT id, `type` FROM product WHERE id = 123 AND `type` = "zed"' | ./$(OBJ)
-	    echo 'SELECT id, `type` FROM product' | ./$(OBJ)
+	echo 'SELECT id, `type` FROM product WHERE id>3' | ./$(OBJ)
 
 put:
-	    echo "INSERT INTO websites (name, url, alexa) VALUES ('ali','aliyun.com',4)" | ./$(OBJ)
-	    echo "INSERT INTO websites (id, name) VALUES (7, 'ali')" | ./$(OBJ)
+	echo "INSERT INTO websites (name, url, alexa) VALUES ('ali','aliyun.com',4);" | ./$(OBJ)
+	echo "INSERT INTO websites (id, name) VALUES (7, 'ali');" | ./$(OBJ)
 
 post:
-	    echo "UPDATE websites SET alexa = 30, country = 'USA' WHERE name = 123" | ./$(OBJ)
-	    echo "UPDATE websites SET used = 0" | ./$(OBJ)
+	echo "UPDATE websites SET alexa = 30, country = 'USA' WHERE name = 123;" | ./$(OBJ)
+	echo "UPDATE websites SET used = 0"; | ./$(OBJ)
 
 del:
-	    echo "DELETE FROM websites WHERE `id` > 12 " | ./$(OBJ)
-	    echo "DELETE FROM websites " | ./$(OBJ)
+	echo "DELETE FROM websites WHERE `id` > 12" | ./$(OBJ)
+	echo "DELETE FROM websites" | ./$(OBJ)
 
 clean:
-	    rm -f ./$(OBJ) ./$(FLEXC) ./$(BISONC) ./$(BISONH)
+	rm -f ./$(OBJ) ./$(FLEXC) ./$(BISONC) ./$(BISONH)
