@@ -9,7 +9,7 @@ letter          [a-zA-Z_.]
 digit           [0-9]
 mixchar         [a-zA-Z_0-9.]
 idmark          [a-zA-Z_.][a-zA-Z_0-9.]*
-char            [\]\[\\\+\"=\)\(\{\}\*&\^\%\$#@!:\|\~\`\.\<\>\?\/a-zA-Z_0-9 \-]
+char            [\-\[\]\\\+\"=\)\(\{\}\*&\^\%\$#@!:\|\~\`\.\<\>\?\/a-zA-Z_0-9 ;]
 sign            [\+\-]
 space           [ \t\n]
 blank           [ \t]
@@ -44,5 +44,7 @@ OR              return OR;
 {digit}+        return VALUE;
 \"{char}*\"     return VALUE;
 \'{char}*\'     return VALUE;
+[;]             return SEMI;
+[\n]            return EOL;
 [ \t]+        ; /*ignore white space*/
 %%

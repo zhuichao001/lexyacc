@@ -5,23 +5,23 @@ int yywrap(void);
 void yyerror(char const *);
 %}
 
-%token SELECT UPDATE INSERT DELETE SET FROM INTO VALUES WHERE AND OR EQ NEQ GT LT GE LE NAME VALUE
+%token SELECT UPDATE INSERT DELETE SET FROM INTO VALUES WHERE NAME VALUE SEMI EOL
 %left AND OR
 %left EQ NEQ GT LT GE LE
 
 %%
 
-program:    get '\n'
-            | post '\n'
-            | put '\n'
-            | del '\n'
+program:    get SEMI EOL
+            | post SEMI EOL
+            | put SEMI EOL
+            | del SEMI EOL
             |;
 
 fields:     NAME | fields ',' NAME;
 columns:    '*' | fields;
 values:     VALUE | values ',' VALUE;
 logic:      EQ | NEQ | GT | LT | GE | LE;
-whereas:    | WHERE expr;
+whereas:    /*EMPTY*/ | WHERE expr;
 expr:       clause | expr AND clause | expr OR clause;
 clause:     NAME logic VALUE; 
 
