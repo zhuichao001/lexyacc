@@ -7,15 +7,17 @@ void yyerror(char const *);
 
 %token SELECT UPDATE INSERT DELETE SET FROM INTO VALUES WHERE NAME VALUE SEMI EOL
 %left AND OR
-%left EQ NEQ GT LT GE LE
+%nonassoc EQ NEQ GT LT GE LE
+
+%expect 0
 
 %%
 
-program:    get SEMI EOL
-            | post SEMI EOL
-            | put SEMI EOL
-            | del SEMI EOL
-            |;
+program:    /*EMPTY*/
+            | selector 
+            | updater SEMI 
+            | inserter SEMI 
+            | deleter SEMI ;
 
 fields:     NAME | fields ',' NAME;
 columns:    '*' | fields;
@@ -24,16 +26,12 @@ logic:      EQ | NEQ | GT | LT | GE | LE;
 whereas:    /*EMPTY*/ | WHERE expr;
 expr:       clause | expr AND clause | expr OR clause;
 clause:     NAME logic VALUE; 
-
 assignment: NAME '=' VALUE | assignment ',' NAME '=' VALUE;
 
-get:        SELECT columns FROM NAME whereas { printf("SELECT SQL WHERE\n"); };
-
-post:       UPDATE NAME SET assignment whereas { printf("UPDATE SQL\n"); } ;
-
-put:        INSERT INTO NAME '(' fields ')' VALUES '(' values ')' { printf("INSERT SQL\n"); };
-
-del:        DELETE FROM NAME whereas { printf("DELETE SQL\n"); };
+selector:   SELECT columns FROM NAME whereas { printf("SELECT SQL WHERE\n"); };
+updater:    UPDATE NAME SET assignment whereas { printf("UPDATE SQL\n"); } ;
+inserter:   INSERT INTO NAME '(' fields ')' VALUES '(' values ')' { printf("INSERT SQL\n"); };
+deleter:    DELETE FROM NAME whereas { printf("DELETE SQL\n"); };
 
 %%
 
